@@ -1,36 +1,32 @@
 # kubernetes-cheat-sheet
-## Kubernetes (and more) Command Cheat Sheet
+## KUBERNETES (AND MORE) COMMAND CHEAT SHEET
 
-#### Setting question context in CKA exam:
+#### SETTING QUESTION CONTEXT IN CKA EXAM:
 `kubectl config set-context <context-of-question> --namespace=<namespace-of-question>`
 
-#### Set alias for kubectl:
+#### SET ALIAS FOR KUBECTL:
 `alias k=kubectl`
 
-#### Find shortnames for resources:
+#### FIND SHORTNAMES FOR RESOURCES:
 `kubectl api-resources`
 
-#### Immediate deletion of a resource:
+#### IMMEDIATELY DELETE A RESOURCE:
 `kubectl delete pod nginx --grace-period=0 --force`
 
-#### Finding object information:
+#### FINDING OBJECT INFORMATION:
 `kubectl describe pods | grep -C 10 "item to look for"`
 
-or in yaml:
+#### OR IN YAML FORMAT:
 `kubectl get pods -o yaml | grep -C 5 labels:`
 
-#### Using help for commands:
+#### USING HELP FOR COMMANDS:
 `kubectl delete --help`
 `kubectl create --help`
 `kubectl describe --help`
 
-#### Get specific with describing objects:
+#### GET SPECIFIC WHEN EXPLAINING/DESCRIBING OBJECTS:
 
 `kubectl explain pod.spec`
-
-#### What is RBAC?
- 
-`RBAC defines policies for users, groups, and processes by allowing or disallowing access to manage API resources.`
  
 #### KUBERNETES AUTO-COMPLETION
 `echo 'source <(kubectl completion bash)' >>~/.bashrc`
@@ -62,16 +58,35 @@ or in yaml:
 ## WORKING WITH HARBOR
 
 #### PULL OR PUSH AN IMAGE FROM AN OCI IMAGE REGISTRY LIKE HARBOR OR DOCKERHB
-
 `docker pull|push "${HARBOR_DOMAIN}/app-top-level_folder/app:tag"`
 
 #### TAG AN IMAGE TO PUSH TO HARBOR 
-
 `docker image tag "${HARBOR_DOMAIN/app-top-level-folder/app:current-tag" "${HARBOR_DOMAIN}/app-top-level-folder/app:new-tag"`
 
 #### COPY ONE IMAGE FROM AN OCI REGISTRY TO ANOTHER OCI REGISTRY
-
 `imgpkg copy -i "${HARBOR_DOMAIN}/app-top-level-folder/app@sha256:sha-string-goes-here" --to-repo "${HARBOR_DOMAIN}/app-top-level-folder/app"`
 
+#### SECURITY AND NETWORKING (OBJECT NAME COULD BE svc, pr, etc)
 
+`kubectl port-forward objectname/app-name 8080:8080`
+
+#### GET NETWORK POLICY
+
+kubectl get NetworkPolicy
+
+#### LIST SECRETS
+
+kubectl get secrets --all-namespaces
+
+#### GENERATE A SECRET
+
+echo -n 'password' | base64 -d
+
+#### GET SECRET
+
+`kubectl get secret cluster-kubeconfig`
+
+#### GET SECRET FROM CONFIG FILE
+
+`kubectl get secret cluster-kubeconfig -o jsonpath="{.data.value}"`
 
