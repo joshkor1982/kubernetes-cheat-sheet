@@ -110,3 +110,17 @@ echo -n 'password' | base64 -d
 #### COPY ONE IMAGE FROM AN OCI REGISTRY TO ANOTHER OCI REGISTRY
 `imgpkg copy -i "${HARBOR_DOMAIN}/app-top-level-folder/app@sha256:sha-string-goes-here" --to-repo "${HARBOR_DOMAIN}/app-top-level-folder/app"`
 
+### USING KP SECRETS
+
+`kp secret create "harbor-cred-${USER}" --registry "${HARBOR_DOMAIN}" --registry-user "${USER}"`
+
+#### CONNECT TBS AND HARBOR
+
+`kp image create app --tag "${HARBOR_DOMAIN}/app-folder/app-name:app-tag" --git "https://github.com/${GH_USERNAME}/simple-app.git" --git-revision main --wait --namespace "${USER_ID}"`
+
+#### RELOCATE IMAGES USING TBS
+
+`imgpkg copy -b registry.tanzu.vmware.com/build-service/bundle:1.4.2 --to-repo <IMAGE-REPOSITORY>`
+
+### PULL IMAGE FROM TANZU BUILD SERVICE
+`docker pull registry.tanzu.vmware.com/build-service/package-repo:sha256-ba0f8da86e8f2f0fb6563ced284e5cf0df9a82523f854b8eede213d4ce72230b.imgpkg`
