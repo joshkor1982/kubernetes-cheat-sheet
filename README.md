@@ -1,5 +1,5 @@
 # kubernetes-cheat-sheet
-## CKA Kubernetes Command Cheat Sheet
+## Kubernetes (and more) Command Cheat Sheet
 
 #### Setting question context in CKA exam:
 `kubectl config set-context <context-of-question> --namespace=<namespace-of-question>`
@@ -58,4 +58,20 @@ or in yaml:
 
 #### GET PODS BY LABELS AND SELECTORS (-l IS SHORT FOR SELECTOR)
 `kubectl get pods -l app=name-of-app -A`
+
+## WORKING WITH HARBOR
+
+#### PULL OR PUSH AN IMAGE FROM AN OCI IMAGE REGISTRY LIKE HARBOR OR DOCKERHB
+
+`docker pull|push "${HARBOR_DOMAIN}/app-top-level_folder/app:tag"`
+
+#### TAG AN IMAGE TO PUSH TO HARBOR 
+
+`docker image tag "${HARBOR_DOMAIN/app-top-level-folder/app:current-tag" "${HARBOR_DOMAIN}/app-top-level-folder/app:new-tag"`
+
+#### COPY ONE IMAGE FROM AN OCI REGISTRY TO ANOTHER OCI REGISTRY
+
+`imgpkg copy -i "${HARBOR_DOMAIN}/app-top-level-folder/app@sha256:sha-string-goes-here" --to-repo "${HARBOR_DOMAIN}/app-top-level-folder/app"`
+
+
 
