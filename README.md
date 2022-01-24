@@ -61,15 +61,15 @@
 
 #### 18. GET NETWORK POLICY
 
-kubectl get NetworkPolicy
+`kubectl get NetworkPolicy`
 
 #### 19. LIST SECRETS
 
-kubectl get secrets --all-namespaces
+`kubectl get secrets --all-namespaces`
 
 #### 20. GENERATE A SECRET
 
-echo -n 'password' | base64 -d
+`echo -n 'password' | base64 -d`
 
 #### 21. GET SECRET
 
@@ -99,28 +99,28 @@ echo -n 'password' | base64 -d
 
 `kubectl auth can-i use pods/list`
 
-## WORKING WITH HARBOR
+## WORKING WITH TANZU
 
-#### PULL OR PUSH AN IMAGE FROM AN OCI IMAGE REGISTRY LIKE HARBOR OR DOCKERHB
+#### 1. PULL OR PUSH AN IMAGE FROM AN OCI IMAGE REGISTRY LIKE HARBOR OR DOCKERHB
 `docker pull|push "${HARBOR_DOMAIN}/app-top-level_folder/app:tag"`
 
-#### TAG AN IMAGE TO PUSH TO HARBOR 
+#### 2. TAG AN IMAGE TO PUSH TO HARBOR 
 `docker image tag "${HARBOR_DOMAIN/app-top-level-folder/app:current-tag" "${HARBOR_DOMAIN}/app-top-level-folder/app:new-tag"`
 
-#### COPY ONE IMAGE FROM AN OCI REGISTRY TO ANOTHER OCI REGISTRY
+#### 3. COPY ONE IMAGE FROM AN OCI REGISTRY TO ANOTHER OCI REGISTRY
 `imgpkg copy -i "${HARBOR_DOMAIN}/app-top-level-folder/app@sha256:sha-string-goes-here" --to-repo "${HARBOR_DOMAIN}/app-top-level-folder/app"`
 
-### USING KP SECRETS
+#### 4. USING KP SECRETS
 
 `kp secret create "harbor-cred-${USER}" --registry "${HARBOR_DOMAIN}" --registry-user "${USER}"`
 
-#### CONNECT TBS AND HARBOR
+#### 5. CONNECT TBS AND HARBOR
 
 `kp image create app --tag "${HARBOR_DOMAIN}/app-folder/app-name:app-tag" --git "https://github.com/${GH_USERNAME}/simple-app.git" --git-revision main --wait --namespace "${USER_ID}"`
 
-#### RELOCATE IMAGES USING TBS
+#### 6. RELOCATE IMAGES USING TBS
 
 `imgpkg copy -b registry.tanzu.vmware.com/build-service/bundle:1.4.2 --to-repo <IMAGE-REPOSITORY>`
 
-### PULL IMAGE FROM TANZU BUILD SERVICE
+### 7. PULL IMAGE FROM TANZU BUILD SERVICE
 `docker pull registry.tanzu.vmware.com/build-service/package-repo:sha256-ba0f8da86e8f2f0fb6563ced284e5cf0df9a82523f854b8eede213d4ce72230b.imgpkg`
