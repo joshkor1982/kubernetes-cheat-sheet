@@ -99,7 +99,7 @@
 
 `kubectl auth can-i use pods/list`
 
-## WORKING WITH TANZU
+## WORKING WITH TANZU & CARVEL
 
 #### 1. PULL OR PUSH AN IMAGE FROM AN OCI IMAGE REGISTRY LIKE HARBOR OR DOCKERHB
 `docker pull|push "${HARBOR_DOMAIN}/app-top-level_folder/app:tag"`
