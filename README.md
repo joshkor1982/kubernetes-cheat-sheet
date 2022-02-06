@@ -1,5 +1,192 @@
-# kubernetes-cheat-sheet
-## KUBERNETES (AND MORE) COMMAND CHEAT SHEET
+# BASIC COMPONENTS
+
+## ETCD COMMANDS
+
+#### VIEW ETCD OPTIONS
+
+```bash
+cat /etc/kubernetes/manifests/etcd.yaml
+```
+
+#### SET A KEY VALUE PAIR IN THE ETCD DATABASE
+
+```shell
+./etcdctl set key value
+```
+
+#### GET A KEY IN ETCD
+
+```shell
+./etcdctl get key
+```
+
+## KUBE-APISERVER
+
+#### VIEW KUBE-APISERVER
+
+```shell
+kubectl get pods -n kube-system
+```
+
+#### VIEW KUBE-APISERVER OPTIONS
+
+```shell
+cat /etc/kubernetes/manifests/kube-apiserver.yaml
+```
+
+## KUBE-PROXY
+
+```shell
+kubectl get pods -n kube-system | grep kube-proxy
+```
+
+## KUBE-CONTROLLER-MANAGER
+
+#### VIEW KUBE-CONTROLLER-MANAGER OPTIONS
+
+`cat /etc/kubernetes/manifests/kube-controller-manager.yaml`
+
+## KUBE-SCHEDULER
+
+
+#### VIEW KUBE-SCHEDULER OPTIONS
+
+```shell
+cat /etc/kubernetes/manifests/kube-controller-manager.yaml
+```
+
+#### VIEW KUBE-SCHEDULER PROCESS
+
+```shell
+ps -aux | grep kube-scheudler
+```
+
+## KUBELET
+
+#### SEE IF KUBELET IS RUNNING
+
+```shell
+ps -aux | grep kublet
+```
+
+#### SEE IF KUBELET IS RUNNING
+
+```shell
+ps -aux | grep kubelet
+```
+
+# CREATING MANIFESTS
+
+## CREATE A DEPLOYMENT
+
+`deployment.def.yaml`
+
+```
+    apiVersion: apps/v1
+    kind: Deployment
+    metadata:
+      name: myapp-deployment
+      labels:
+        app: myapp
+        type: front-end
+    spec:
+     template:
+        metadata:
+          name: myapp-pod
+          labels:
+            app: myapp
+            type: front-end
+        spec:
+         containers:
+         - name: nginx-frontend
+           image: nginx
+     replicas: 3
+     selector:
+       matchLabels:
+        type: front-end
+ ```
+
+### RUN THE DEPLOYMENT
+
+```shell
+kubectl create -f deployment-def.yaml
+```
+#### VIEW THE DEPLOYMENT
+
+```shell
+kubectl get deployment | grep deployment-def
+```
+#### VIEW REPLICASET CREATED BY THE DEPLOYMENT
+
+```shell
+kubectl get replicaset | grep myapp
+```
+#### VIEW PODS CREATED DURING THE DEPLOYMENT
+
+```shell
+kubectl get pods | grep myapp
+```
+
+### USE THE -w FLAG TO WATCH RESOURCES GENERATE IN REAL-TIME
+
+```shell
+kubectl get pods -w
+```
+
+#### VIEW POD COUNT WITH NO HEADERS TO GET AN ACCURATE NUMBER
+
+```shell
+kubectl get pods --no-headers | wc -l
+```
+
+#### ALTERNATE METHOD
+
+```shell
+kubectl get pods | tail -n +2 | wc -l
+```
+
+#### SCALE UP OR DOWN YOUR DEPLOYMENT
+
+```shell
+kubectl scale --replicas=8 -f deployment-ref.yaml
+```
+### TO SEE THE WHOLE DEPLOYMENT AT ONCE
+
+```shell
+kubectl get all
+```
+### ADD A SERVICE TO EXPOSE THE APPLICATION
+
+```
+apiVersion: v1
+kind: Service
+metadata:
+  name: myapp-service
+  spec:
+    type: NodePort
+    ports:
+    - targetPort: 80
+      port: 80
+      nodePort: 30008
+    selector:
+      app: myapp
+      type: front-end
+  ```
+  ### APPLY THE SERVICE
+  
+  ```shell
+  kube
+ ### WITH EVEN MORE INFO
+
+```shell
+kubectl get all -A
+```
+
+### MAX INFO
+
+```shell
+kubectl get all -A -o wide
+```
 
 #### 1. SETTING QUESTION CONTEXT IN CKA EXAM:
 `kubectl config set-context <context-of-question> --namespace=<namespace-of-question>`
@@ -81,11 +268,15 @@
 
 #### 23. LIST AUTHENTICATED CONTEXTS
 
-`kubectl config get-contexts, ~/.kube/config`
+```shell
+kubectl config get-contexts, ~/.kube/config
+```
 
 #### 24. SWITCH CONTEXT
 
-`kubectl config use-context`
+```shell
+kubectl config use-context
+```
 
 #### 25. DELETE CONTEXT
 
