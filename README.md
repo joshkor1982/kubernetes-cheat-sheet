@@ -172,10 +172,11 @@ metadata:
       app: myapp
       type: front-end
   ```
-  ### APPLY THE SERVICE
+
+### APPLY THE SERVICE
   
   ```shell
-  kube
+  kubectl apply -f deployment-service.yaml
  ### WITH EVEN MORE INFO
 
 ```shell
