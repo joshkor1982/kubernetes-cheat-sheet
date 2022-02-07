@@ -1,5 +1,22 @@
 # BASIC COMPONENTS
 
+## RUN COMMANDS IN A CONTAINER
+
+```shell
+kubectl exec -it ${NAMESPACE} ${PODNAME} -- bash
+```
+
+## GET POD LOGS
+
+```shell
+kubectl logs -n ${NAMESPACE} ${PODNAME}
+```
+## DESCRIBE OBJECT
+
+```shell
+k describe ${OBJECT} -n ${NAMESPACE}
+```
+
 ## ETCD COMMANDS
 
 #### VIEW ETCD OPTIONS
